@@ -6,7 +6,6 @@
 
 
 import os
-import unittest
 from unittest import TestCase
 
 from models import db, User
@@ -16,7 +15,7 @@ from models import db, User
 # before we import our app, since that will have already
 # connected to the database
 
-os.environ['DATABASE_URL'] = "postgresql:///warbler-test"
+os.environ['DATABASE_URL'] = "postgresql:///warbler_test"
 
 
 # Now we can import app
@@ -44,11 +43,11 @@ class UserModelTestCase(TestCase):
         db.create_all()
 
         user1 = User.signup("1", "test1@test.com", "password", None)
-        uid1 = 1
+        uid1 = 1111
         user1.id = uid1
 
         user2 = User.signup("2", "test2@test.com", "password", None)
-        uid2 = 2
+        uid2 = 2222
         user2.id = uid2
 
         db.session.commit()
@@ -93,8 +92,8 @@ class UserModelTestCase(TestCase):
         self.assertEqual(len(self.user1.followers), 0)
         self.assertEqual(len(self.user1.following), 1)
 
-        self.assertEqual(self.u1.following[0].id, self.user2.id)
-        self.assertEqual(self.u2.followers[0].id, self.user1.id)
+        self.assertEqual(self.user1.following[0].id, self.user2.id)
+        self.assertEqual(self.user2.followers[0].id, self.user1.id)
 
     def test_valid_signup(self):
         user_test = User.signup("test", "test@testtttt.com", "password", None)
